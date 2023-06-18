@@ -88,38 +88,38 @@ interface Config {
 ## Setup
 
 1. Create a Discord Webhook for your server. See [this article](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks) for more information.
-1. Set your PM2 config values
-1. e.g:
+2. Set your PM2 config values
+3. e.g:
 
 ```bash
   pm2 set pm2-discord-logger:log_url https://discordapp.com/api/webhooks/123456789/abcdefghijklmnopqrstuvwxyz
   pm2 set pm2-discord-logger:restart true
 ```
 
-1. You can set the same or different webhook for each channel but logs will not be recorded if the webhook is not set.
+4. You can set the same or different webhook for each channel but logs will not be recorded if the webhook is not set.
 
 ## Development
 
 1. Fork and clone the repo
-1. Install dependencies
+2. Install dependencies
 
 ```bash
   yarn install
 ```
 
-1. Build the project in watch mode
+3. Build the project in watch mode
 
 ```bash
   yarn watch
 ```
 
-1. Copy the `package.json` file into the `dist` folder
+4. Copy the `package.json` file into the `dist` folder
 
 ```bash
   cp package.json dist
 ```
 
-1. Run the project locally in PM2
+5. Run the project locally in PM2
 
 ```bash
   cd dist
