@@ -1,6 +1,6 @@
 {
   "name": "pm2-discord-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PM2 Discord Logger",
   "main": "dist/app.js",
   "author": "Derick M. <58572875+TurtIeSocks@users.noreply.github.com>",
@@ -49,7 +49,7 @@
     {
       "merge_logs": true,
       "max_memory_restart": "256M",
-      "script": "app.js"
+      "script": "dist/app.js"
     }
   ]
 }
