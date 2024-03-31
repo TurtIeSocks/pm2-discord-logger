@@ -30,35 +30,50 @@ io.initModule({}, (err: Error) => {
       console.error(err)
       process.exit(1)
     }
-    bus.on('log:out', (data: Data) => {
-      logClient?.pushToBuffer(data)
-    })
+
+    // Listen for process logs
+    if (logClient) {
+      bus.on('log:out', (data: Data) => {
+        logClient.pushToBuffer(data)
+      })
+    }
 
     // Listen for process errors
-    bus.on('log:err', (data: Data) => {
-      errorClient?.pushToBuffer(data)
-    })
+    if (errorClient) {
+      bus.on('log:err', (data: Data) => {
+        errorClient.pushToBuffer(data)
+      })
+    }
 
-    // Listen for PM2 kill
-    bus.on('pm2:kill', (data: Data) => {
-      eventClient?.createMessage(data,  `${DiscordLogger.getTitle(data)} Killed`)
-    })
-
-    // Listen for process exceptions
-    bus.on('process:exception', (data: Data) => {
-      eventClient?.createMessage(data, `${DiscordLogger.getTitle(data)} Exception`)
-    })
-
-    // Listen for PM2 events
-    bus.on('process:event', (data: Data) => {
-      if (data.event && conf[data.event]) {
-        eventClient?.createMessage(
+    // Listen for process events
+    if (eventClient) {
+      // Listen for PM2 kill
+      bus.on('pm2:kill', (data: Data) => {
+        eventClient.createMessage(
           data,
-          '',
-          `Restart Count: ${data.process.restart_time}\nUnstable Restarts: ${data.process.unstable_restarts}`
+          `${DiscordLogger.getTitle(data)} Killed`
         )
-      }
-    })
+      })
+
+      // Listen for process exceptions
+      bus.on('process:exception', (data: Data) => {
+        eventClient.createMessage(
+          data,
+          `${DiscordLogger.getTitle(data)} Exception`
+        )
+      })
+
+      // Listen for PM2 events
+      bus.on('process:event', (data: Data) => {
+        if (data.event && conf[data.event]) {
+          eventClient.createMessage(
+            data,
+            '',
+            `Restart Count: ${data.process.restart_time}\nUnstable Restarts: ${data.process.unstable_restarts}`
+          )
+        }
+      })
+    }
 
     setInterval(async () => {
       await Promise.allSettled(

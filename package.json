@@ -1,6 +1,6 @@
 {
   "name": "pm2-discord-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "PM2 Discord Logger",
   "main": "dist/app.js",
   "author": "Derick M. <58572875+TurtIeSocks@users.noreply.github.com>",
